@@ -213,6 +213,8 @@ def export_engine(model, im, file, train, half, simplify, workspace=4, verbose=F
             model.model[-1].anchor_grid = grid
         else:  # TensorRT >= 8
             check_version(trt.__version__, '8.0.0', hard=True)  # require tensorrt>=8.0.0
+            # IMPORTANT!!! This beaks compatibility with Python 3.6. To export TensorRT for Python 3.6, pre-generate
+            # the ONNX, comment the next line, and then run this script!
             export_onnx(model, im, file, 13, train, False, simplify)  # opset 13
         onnx = file.with_suffix('.onnx')
 
